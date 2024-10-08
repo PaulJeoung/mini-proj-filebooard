@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource name="jdbc/sqlplus" auth="Container" type="javax.sql.DataSource"
+               maxActive="500" maxIdle="30" maxWait="10000"
+               factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+               username="root" password="1234" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/sqlplus"/>
+  <!-- 
+  <ResourceLink global="dbcp_mysql" name="dbcp_mysql" type="javax.sql.DataSource"/>
+   -->
+</Context>
