@@ -137,10 +137,11 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 	public int insertWrite(MVCBoardDTO dto) {
 		int result = 0;
 		try {
-			String query = "INSERT INTO mvcboard ( "
+			String query = "INSERT INTO sqlplus.mvcboard ( "
 						+ " idx, name, title, content, ofile, sfile, pass) "
 						+ " VALUES ( "
-						+ "sqlplus.mvcboard.NEXTVAL, ?,?,?,?,?,?)"; // 확인 필요
+						+ " seq_board_num.NEXTVAL,?,?,?,?,?,?)"; // 확인 필요
+			System.out.println(getClass() + " :: insertWrite() :: 쿼리 준비 ==> "+query);
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getName());
 			psmt.setString(2, dto.getTitle());
@@ -148,7 +149,9 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 			psmt.setString(4, dto.getOfile());
 			psmt.setString(5, dto.getSfile());
 			psmt.setString(6, dto.getPass());
+			System.out.println(getClass() + " :: insertWrite() :: psmt에 입력한 내용을 쿼리문에 담아서 준비");
 			result = psmt.executeUpdate();
+			System.out.println(getClass() + " :: insertWrite() :: 쿼리 실행 완료");
 		}
 		catch (Exception e) {
 			System.out.println("게시물 입력 중 예외 발생");
