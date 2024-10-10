@@ -29,6 +29,11 @@
 			form.pass.focus();
 			return false;
 		}
+		if (form.ofile.value == "") {
+			alert("첨부파일은 필수 입력 입니다.");
+			form.ofile.focus();
+			return false;
+		}
 	}
 </script>
 </head>

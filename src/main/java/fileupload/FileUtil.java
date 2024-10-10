@@ -16,11 +16,13 @@ public class FileUtil { // 12.2.4 정 참고 (유틸리티 클래스)
 	public static MultipartRequest uploadFile(HttpServletRequest req, String saveDirectory, int maxPostSize) {
 		try {
 			// 파일 업로드
+			System.out.println("class fileupload.FileUtil :: uploadFile () :: 파일 업로드 시도");
 			return new MultipartRequest (req, saveDirectory, maxPostSize, "UTF-8");
 		}
 		catch (Exception e) {
 			// 업로드 실패
 			e.printStackTrace();
+			System.out.println("class fileupload.FileUtil :: uploadFile () :: 파일 업로드 실패");
 			return null;
 		}
 	}
@@ -32,14 +34,18 @@ public class FileUtil { // 12.2.4 정 참고 (유틸리티 클래스)
 			// 파일을 찾아 입력 스트림 생성
 			File file = new File(sDirectory, sfileName);
 			InputStream iStream = new FileInputStream(file);
+			System.out.println("class fileupload.FileUtil :: download () :: 입력스트림 객체 생성");
 			
 			// 한글 파일명 깨짐 방지
 			String client = req.getHeader("User-Agent");
 			if(client.indexOf("WOW64") == -1) {
 				ofileName = new String(ofileName.getBytes("UTF-8"), "ISO-8859-1");
+				System.out.println("class fileupload.FileUtil :: download () :: ofileName ==>");
 			} else {
 				ofileName = new String(ofileName.getBytes("KSC5601"), "ISO-8859-1");
+				System.out.println("class fileupload.FileUtil :: download () :: ofileName ==>");
 			}
+			System.out.println("class fileupload.FileUtil :: download () :: 한글 파일 깨짐 방치 처리 완료");
 			
 			// 파일 다운로드용 응답헤더 설정
 			resp.reset();
@@ -51,6 +57,7 @@ public class FileUtil { // 12.2.4 정 참고 (유틸리티 클래스)
 			
 			// response내장 객체로 부터 새로운 출력 스트림 생성
 			OutputStream oStream = resp.getOutputStream();
+			System.out.println("class fileupload.FileUtil :: download () :: response 내장 객체로 부터 출력 스트림 생성");
 			
 			// 출력 스트림에 파일 내용 출력
 			byte b[] = new byte[(int)file.length()];
@@ -58,17 +65,19 @@ public class FileUtil { // 12.2.4 정 참고 (유틸리티 클래스)
 			while ((readBuffer = iStream.read(b))>0) {
 				oStream.write(b, 0, readBuffer);
 			}
+			System.out.println("class fileupload.FileUtil :: download () :: 출력스트림에 파일 내용 출력");
 			
 			// 입/출력 스트림 닫음
 			iStream.close();
 			oStream.close();
+			System.out.println("class fileupload.FileUtil :: download () :: IO 스트림 닫기");
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다");
+			System.out.println("class fileupload.FileUtil :: download () :: 파을 찾을 수 없습니다.");
 			e.printStackTrace();
 		}
 		catch (Exception e) {
-			System.out.println("예외가 발생 하였습니다");
+			System.out.println("class fileupload.FileUtil :: download () :: 예외가 발생 하였습니다. ");
 			e.printStackTrace();
 		}
 	}

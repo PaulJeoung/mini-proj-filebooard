@@ -17,12 +17,15 @@ public class DownloadController extends HttpServlet {
 		String ofile = req.getParameter("ofile");
 		String sfile = req.getParameter("sfile");
 		String idx = req.getParameter("idx");
+		System.out.println(getClass() + " :: doGet() :: ofile, sfile, idx의 매개변수를 가지고 옴");
 		
 		// 파일 다운로드
 		FileUtil.download(req, resp, "/Uploads", sfile, ofile);
+		System.out.println(getClass() + " :: doGet() :: FileUtil의 download() 으로 다운로드 시도");
 		// 해당 게시물의 다운로드 수 1 증가
 		MVCBoardDAO dao = new MVCBoardDAO();
 		dao.downloadCountPlus(idx);
+		System.out.println(getClass() + " :: doGet() :: DAO에서 idx를 이용해 count를 1 증가");
 		dao.close();
 	}
 }
