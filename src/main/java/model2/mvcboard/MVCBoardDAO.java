@@ -196,15 +196,17 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 	// 주어진 일련번호에 해당하는 게시물의 조회수를 1 증가 시킴
 	public void updateVisitCount(String idx) {
 		String query = "UPDATE sqlplus.mvcboard SET "
-				     + " visitcount=visitcount+1 "
-				     + " WHERE idx=?";
+				     + "visitcount = visitcount+1 "
+				     + "WHERE idx=?";
+		System.out.println(getClass() + " :: updateVisitCount(idx) :: 쿼리문 준비"+query);
 		try {
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, idx);
-			psmt.executeQuery();
+			psmt.executeUpdate(); // psmt.executeQuery();
+			System.out.println(getClass() + " :: updateVisitCount(idx) :: 쿼리문 업데이트");
 		}
 		catch (Exception e) {
-			System.out.println("게시물 조회수 증가 중 예외 발생");
+			System.out.println(getClass() + " :: updateVisitCount(idx) :: 게시물 조회수 증가 중 예외 발생");
 			e.printStackTrace();
 		}
 	}

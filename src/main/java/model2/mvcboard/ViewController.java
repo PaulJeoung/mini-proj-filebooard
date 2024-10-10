@@ -15,8 +15,10 @@ public class ViewController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 게시물 불러오기
 		MVCBoardDAO dao = new MVCBoardDAO();
+		System.out.println(getClass() + " :: service() :: MVCBoardDAO 객체 생성");
 		String idx = req.getParameter("idx");
 		dao.updateVisitCount(idx);
+		System.out.println(getClass() + " :: service() :: idx 값으로 쿼리 하여 updateVisitCount() 증가");
 		MVCBoardDTO dto = dao.selectView(idx);
 		dao.close();
 		
