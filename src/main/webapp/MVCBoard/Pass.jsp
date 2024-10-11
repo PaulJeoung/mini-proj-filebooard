@@ -21,8 +21,8 @@
 <h3>파일 첨부형 게시판 - 비밀번호 검증(Pass)</h3>
 <form name="writeFrm" method="post" action="../mvcboard/pass.do" onsubmit="return validateForm(this);">
 	<!-- idx, mode 원래는 type="hidden" -->
-	<input type="text" readonly name="idx" value="${ param.idx }" />
-	<input type="text" readonly name="mode" value="${ param.mode }" />
+	<input type="text" name="idx" value="${ param.idx }" readonly/>
+	<input type="text" name="mode" value="${ param.mode }" readonly/>
 	<table border="1" width="90%">
 		<tr>
 			<td>비밀번호</td>

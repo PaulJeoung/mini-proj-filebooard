@@ -29,27 +29,30 @@
 <body>
 <h2>파일 첨부형 게시판 - 수정하기(Edit)</h2>
 <form>
-	<input name="writeFrm" method="post" enctype="multopart/form-data" action="../mvcboard/edit.do" onsubmit="return validateForm(this);"/>
-	<input type="hidden" name="preOfile" value="${ dto.ofile }" />
-	<input type="hidden" name="preSfile" value="${ dto.sfile }" />
+	<input name="writeFrm" method="post" enctype="multopart/form-data" 
+		action="../mvcboard/edit.do" onsubmit="return validateForm(this);"/>
+	<!-- 원래는 type="hidden" -->
+	<input type="text" name="idx" value="${ dto.idx }" readonly/>
+	<input type="text" name="preOfile" value="${ dto.ofile }" readonly/>
+	<input type="text" name="preSfile" value="${ dto.sfile }" readonly/>
 	
 	<table border="1" width="90%">
 		<tr>
 			<td>작성자</td>
 			<td>
-				<input type="text" name="name" style="width:150px;" value="${dto.name }"/>
+				<input type="text" name="name" style="width:150px;" value="${ dto.name }"/>
 			</td>
 		</tr>
 		<tr>
 			<td>제목</td>
 			<td>
-				<input type="text" name="title" style="width:90%;" value="${dto.title }"/>
+				<input type="text" name="title" style="width:90%;" value="${ dto.title }"/>
 			</td>
 		</tr>
 		<tr>
 			<td>내용</td>
 			<td>
-				<textarea name="content" style="width:90%; height:100px;" >${dto.content }</textarea>
+				<textarea name="content" style="width:90%; height:100px;" >${ dto.content }</textarea>
 			</td>
 		</tr>
 		<tr>

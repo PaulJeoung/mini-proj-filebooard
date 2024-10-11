@@ -74,7 +74,7 @@ public class ListController extends HttpServlet {
 		// 전달할 데이터를 request영역에 저장 후 List.jsp로 포워드
 		req.setAttribute("boardLists", boardLists);
 		req.setAttribute("map", map);
-		req.getRequestDispatcher("/14MVCBoard/List.jsp").forward(req, resp);
+		req.getRequestDispatcher("/MVCBoard/List.jsp").forward(req, resp);
 		System.out.println(getClass() + " :: doGET() :: List.jsp 데이터 포워드");
 		
 	}

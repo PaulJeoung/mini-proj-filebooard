@@ -42,37 +42,12 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 	public List<MVCBoardDTO> selectListPage(Map<String, Object> map) {
 		List<MVCBoardDTO> board = new Vector<MVCBoardDTO>();
 		
-		// 기본 쿼리문 준비
-		/*
-		String query = " "
-				+ "SELECT * FROM ("
-				+ "     SELECT tb.*, ROWNUM rNUM FROM ("
-				+ "          SELECT "
-				+ "* FROM sqlplus.mvcboard" ;
-		*/
 		String query = "SELECT * FROM sqlplus.mvcboard";
 		// 검색 조건이 있다면 where 절 추가
 		if (map.get("searchWord") != null) {
-			/*
-			query += "WHERE " + map.get("searchField")
-			+ " LIKE '%" + map.get("searchWord") + "%'";
-			*/
 			query += " WHERE " + map.get("searchField") + " LIKE '%" + map.get("searchWord") + "%' ";
 			System.out.println(getClass() + " :: selectListPage() :: 검색 조건이 있는 경우 where 절 추가");
 		}
-		/*
-		query += "          ORDER BY idx DESC "
-			  + "     ) Tb "
-			  + " )"
-			  + "WHERE rNUM BETWEEN ? AND ?"; // 게시물 구간은 인파라미터로
-		
-		// Oracle query -->> MySQL Query
-		SELECT * FROM sqlplus.mvcboard
-			WHERE title LIKE '%자료실%'
-			ORDER BY idx DESC
-			LIMIT ? OFFSET ?;
-			LIMIT 10 OFFSET 0;
-		*/
 		// 게시물 구간 설정은 나중에...
 		// query += " ORDER BY idx DESC LIMIT ?, ?";
 		query += " ORDER BY idx DESC LIMIT 10 OFFSET 0"; // 10, 0
@@ -167,11 +142,14 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 	// 주어진 일련번호에 해당하는 게시물을 DTO에 담아 반환 합니다
 	public MVCBoardDTO selectView(String idx) {
 		MVCBoardDTO dto = new MVCBoardDTO(); // DTO 객체 생성
+		System.out.println(getClass() + " :: selectView() :: DTO 객체 생성");
 		String qeury = "SELECT * FROM sqlplus.mvcboard WHERE idx=?"; // 쿼리문 템플릿 준비
+		System.out.println(getClass() + " :: selectView() :: 선택된 idx를 기준으로 쿼리문 준비");
 		try { 
 			psmt = con.prepareStatement(qeury); // 쿼리문 준비
 			psmt.setString(1, idx); // 인파라미터 설정
 			rs = psmt.executeQuery(); // 쿼리문 실행
+			System.out.println(getClass() + " :: selectView() :: 쿼리문 실행");
 			
 			if (rs.next()) { // 결과를 DTO 객체에 저장
 				dto.setIdx(rs.getInt(1));
@@ -187,7 +165,7 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 			}
 		}
 		catch (Exception e) {
-			System.out.println("게시물 상세보기 중 예외 발생");
+			System.out.println(getClass() + " :: selectView() :: 게시물 상세보기 중 예외 발생");
 			e.printStackTrace();
 		}
 		return dto; // 결과 반환
@@ -267,7 +245,8 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 			// 쿼리문 템플릿 준비
 			String query = "UPDATE sqlplus.mvcboard"
 						 + " SET title=?, name=?, content=?, ofile=?, sfile=? "
-						 + " WHERE idx=? and pass=?";
+						 + "WHERE idx=? and pass=?";
+			System.out.println(getClass() + " :: updatePost() :: 쿼리문 템플릿 준비");
 			// 쿼리문 준비
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
@@ -280,8 +259,9 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 			
 			// 쿼리문 실행
 			result = psmt.executeUpdate();
+			System.out.println(getClass() + " :: updatePost() :: 쿼리문 실행");
 		} catch (Exception e) {
-			System.out.println("게시물 수정 중 예외 발생");
+			System.out.println(getClass() + " :: updatePost() :: 게시물 수정 중 예외 발생");
 			e.printStackTrace();
 		}
 		return result;

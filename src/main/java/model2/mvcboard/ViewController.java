@@ -27,6 +27,6 @@ public class ViewController extends HttpServlet {
 		
 		// 게시물(dto) 저장 후 뷰로 포워드
 		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("/14MVCBoard/View.jsp").forward(req, resp);
+		req.getRequestDispatcher("/MVCBoard/View.jsp").forward(req, resp);
 	}
 }
