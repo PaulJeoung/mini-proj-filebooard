@@ -34,14 +34,19 @@ public class EditController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 1. 파일 업로드 처리 ====================================
+		// 1-1. 기존 파일이 있는 경우 업로드 하면 안됨
+		
+		
+		// 1-2. 파일 업로드 처리 ====================================
 		// 업로드 디렉토리의 물리적 경로 확인
 		String saveDirectory = req.getServletContext().getRealPath("/Uploads");
 		System.out.println(getClass() + " :: doPost() :: 업로드 디렉토리 경로 확인 ==> " + saveDirectory);
+		
 		// 초기화 매개변수로 설정한 첨부 파일 최대 용량 확인
 		ServletContext application = getServletContext();
 		int maxPostSize = Integer.parseInt(application.getInitParameter("maxPostSize"));
-		System.out.println(getClass() + " :: doPost() :: 업로드 최대 용량 확인");
+		System.out.println(getClass() + " :: doPost() :: 업로드 최대 용량 확인 ==>> " + maxPostSize);
+		
 		// 파일 업로드
 		MultipartRequest mr = FileUtil.uploadFile(req, saveDirectory, maxPostSize);
 		System.out.println(getClass() + " :: doPost() :: 파일 업로드");
@@ -65,9 +70,10 @@ public class EditController extends HttpServlet {
 		HttpSession session = req.getSession();
 		String pass = (String)session.getAttribute("pass");
 		System.out.println(getClass() + " :: doPost() :: 수정할 부분 매개변수 가지고 옴");
+		
 		// DTO에 저장
 		MVCBoardDTO dto = new MVCBoardDTO();
-		dto.setIdx(Integer.parseInt(idx)); // DTO에 저장 할때 int 로 형 변환
+		dto.setIdx(Integer.parseInt(idx)); // 흠... 어짜피 DB에 들어가는 값 아니니까... 쿼리에 쓰니까... DTO에 저장 할때 int 로 형 변환
 		dto.setName(name);
 		dto.setTitle(title);
 		dto.setContent(content);
@@ -76,6 +82,7 @@ public class EditController extends HttpServlet {
 		
 		// 원본 파일명과 저장된 파일이름 설정
 		String fileName = mr.getFilesystemName("ofile");
+		System.out.println(getClass() + " :: doPost() :: 원본파일명 확인 ==> " + fileName);
 		if(fileName != null) {
 			// 첨부 파일이 있을 경우 파일명 변경
 			// 새로운 파일명 생성

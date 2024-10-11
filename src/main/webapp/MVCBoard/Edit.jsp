@@ -28,13 +28,13 @@
 </head>
 <body>
 <h2>파일 첨부형 게시판 - 수정하기(Edit)</h2>
-<form>
-	<input name="writeFrm" method="post" enctype="multopart/form-data" 
-		action="../mvcboard/edit.do" onsubmit="return validateForm(this);"/>
+<form name="writeFrm" method="post" enctype="multipart/form-data" 
+		action="../mvcboard/edit.do" onsubmit="return validateForm(this);">
+	
 	<!-- 원래는 type="hidden" -->
 	<input type="text" name="idx" value="${ dto.idx }" readonly/>
-	<input type="text" name="preOfile" value="${ dto.ofile }" readonly/>
-	<input type="text" name="preSfile" value="${ dto.sfile }" readonly/>
+	<input type="hidden" name="preOfile" value="${ dto.ofile }"/>
+	<input type="hidden" name="preSfile" value="${ dto.sfile }"/>
 	
 	<table border="1" width="90%">
 		<tr>
@@ -57,7 +57,13 @@
 		</tr>
 		<tr>
 			<td>첨부 파일</td>
-			<td><input type="file" name="ofile"/></td>
+			<td>
+				<input type="file" name="ofile"/>
+				<c:if test="${not empty dto.ofile }">
+					<br/>
+					현재 첨부파일 : <strong>${ dto.ofile }</strong>
+				</c:if>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">

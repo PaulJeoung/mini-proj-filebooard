@@ -65,23 +65,23 @@ public class MVCBoardDAO extends DBConnPool { // Connection Pool 상속
 			
 			// 반환된 게시물 목록을 List 컬렉션에 추가
 			while (rs.next()) {
-				int idx = rs.getInt(1);
-		        String name = rs.getString(2);
-		        String title = rs.getString(3);
-		        String content = rs.getString(4);
-		        Date postdate = rs.getDate(5);
-		        String ofile = rs.getString(6);
-		        String sfile = rs.getString(7);
-		        int downcount = rs.getInt(8);
-		        String pass = rs.getString(9);
-		        int visitcount = rs.getInt(10);
+//				int idx = rs.getInt(1);
+//		        String name = rs.getString(2);
+//		        String title = rs.getString(3);
+//		        String content = rs.getString(4);
+//		        Date postdate = rs.getDate(5);
+//		        String ofile = rs.getString(6);
+//		        String sfile = rs.getString(7);
+//		        int downcount = rs.getInt(8);
+//		        String pass = rs.getString(9);
+//		        int visitcount = rs.getInt(10);
 		        
 		        // 결과를 콘솔에 출력
-		        System.out.println("idx: " + idx + ", name: " + name + ", title: " + title + 
-		                           ", content: " + content + ", postdate: " + postdate + 
-		                           ", ofile: " + ofile + ", sfile: " + sfile + 
-		                           ", downcount: " + downcount + ", pass: " + pass + 
-		                           ", visitcount: " + visitcount);
+//		        System.out.println("idx: " + idx + ", name: " + name + ", title: " + title + 
+//		                           ", content: " + content + ", postdate: " + postdate + 
+//		                           ", ofile: " + ofile + ", sfile: " + sfile + 
+//		                           ", downcount: " + downcount + ", pass: " + pass + 
+//		                           ", visitcount: " + visitcount);
 				
 				MVCBoardDTO dto = new MVCBoardDTO();
 				// 데이터 타입 확인 필요. idx 수정
